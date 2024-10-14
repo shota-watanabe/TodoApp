@@ -1,7 +1,10 @@
-package com.example.service.task;
+package com.example.todo.task;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class TaskService {
 
   public List<TaskEntity> find() {

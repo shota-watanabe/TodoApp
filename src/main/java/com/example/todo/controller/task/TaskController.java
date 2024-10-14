@@ -4,12 +4,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.service.task.TaskService;
+import com.example.todo.task.TaskService;
 
 @Controller
 public class TaskController {
 
-  private final TaskService taskService = new TaskService();
+  private final TaskService taskService;
+
+  public TaskController(TaskService taskService) {
+    this.taskService = taskService;
+  }
 
     @GetMapping("/tasks")
     public String list(Model model) {
