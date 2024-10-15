@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.todo.task.TaskService;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+// Requiredな引数を初期化する(finalなど)
+@RequiredArgsConstructor
 public class TaskController {
 
   private final TaskService taskService;
-
-  public TaskController(TaskService taskService) {
-    this.taskService = taskService;
-  }
 
     @GetMapping("/tasks")
     public String list(Model model) {
