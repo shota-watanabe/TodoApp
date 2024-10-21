@@ -4,25 +4,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
+import com.example.todo.task.TaskService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+// Requiredな引数を初期化する(finalなど)
+@RequiredArgsConstructor
 public class TaskController {
+
+  private final TaskService taskService;
 
     @GetMapping("/tasks")
     public String list(Model model) {
-        // 渡すデータをDTOにまとめる
-        var task1 = new TaskDTO(1L,
-                "Spring Bootを学ぶ",
-                "TODO アプリケーションを作ってみる",
-                "TODO"
-                );
-        var task2 = new TaskDTO(1L,
-                "Spring Securityを学ぶ",
-                "ログイン機能を作ってみる",
-                "TODO"
-                );
-        var taskList = List.of(task1, task2);
+        var taskList = taskService.find()
+            .stream()
+            .map(TaskDTO::toDTO)
+            .toList();
         // 戻り値にテンプレートを指定
         // テンプレート側で「task」という名前で「Spring Bootを学ぶ」という文字列が渡る
         model.addAttribute("taskList", taskList);
